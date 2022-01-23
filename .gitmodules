@@ -1,0 +1,3 @@
+[submodule "MasteringRTOS"]
+	path = MasteringRTOS
+	url = https://github.com/niekiran/MasteringRTOS
