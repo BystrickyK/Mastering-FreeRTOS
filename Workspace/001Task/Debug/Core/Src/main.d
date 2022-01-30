@@ -28,15 +28,22 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_pwr_ex.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim_ex.h \
- C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/FreeRTOS.h \
- C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/FreeRTOSConfig.h \
- C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/projdefs.h \
- C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/portable.h \
- C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/deprecated_definitions.h \
- C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h \
- C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/mpu_wrappers.h \
- C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/task.h \
- C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/list.h
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/FreeRTOS.h \
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/FreeRTOSConfig.h \
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/SEGGER/OS/SEGGER_SYSVIEW_FreeRTOS.h \
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/SEGGER/SEGGER/SEGGER_SYSVIEW.h \
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/SEGGER/SEGGER/SEGGER.h \
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/SEGGER/Config/Global.h \
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/SEGGER/SEGGER/SEGGER_SYSVIEW_ConfDefaults.h \
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/SEGGER/Config/SEGGER_SYSVIEW_Conf.h \
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/SEGGER/Config/SEGGER_RTT_Conf.h \
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/projdefs.h \
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/portable.h \
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/deprecated_definitions.h \
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h \
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/mpu_wrappers.h \
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/task.h \
+ C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/list.h
 
 ../Core/Inc/main.h:
 
@@ -98,20 +105,34 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_tim_ex.h:
 
-C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/FreeRTOS.h:
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/FreeRTOS.h:
 
-C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/FreeRTOSConfig.h:
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/FreeRTOSConfig.h:
 
-C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/projdefs.h:
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/SEGGER/OS/SEGGER_SYSVIEW_FreeRTOS.h:
 
-C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/portable.h:
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/SEGGER/SEGGER/SEGGER_SYSVIEW.h:
 
-C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/deprecated_definitions.h:
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/SEGGER/SEGGER/SEGGER.h:
 
-C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h:
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/SEGGER/Config/Global.h:
 
-C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/mpu_wrappers.h:
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/SEGGER/SEGGER/SEGGER_SYSVIEW_ConfDefaults.h:
 
-C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/task.h:
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/SEGGER/Config/SEGGER_SYSVIEW_Conf.h:
 
-C:/embedded_courses/freertos/MasteringRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/list.h:
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/SEGGER/Config/SEGGER_RTT_Conf.h:
+
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/projdefs.h:
+
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/portable.h:
+
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/deprecated_definitions.h:
+
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F/portmacro.h:
+
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/mpu_wrappers.h:
+
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/task.h:
+
+C:/Users/bystr/Embedded_FreeRTOS/Mastering-FreeRTOS/Workspace/001Task/ThirdParty/FreeRTOS/include/list.h:

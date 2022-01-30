@@ -9,6 +9,10 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include ThirdParty/SEGGER/SEGGER/Syscalls/subdir.mk
+-include ThirdParty/SEGGER/SEGGER/subdir.mk
+-include ThirdParty/SEGGER/OS/subdir.mk
+-include ThirdParty/SEGGER/Config/subdir.mk
 -include ThirdParty/FreeRTOS/portable/MemMang/subdir.mk
 -include ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F/subdir.mk
 -include ThirdParty/FreeRTOS/subdir.mk
@@ -63,8 +67,8 @@ all: main-build
 main-build: 001Task.elf secondary-outputs
 
 # Tool invocations
-001Task.elf: $(OBJS) $(USER_OBJS) C:\embedded_courses\freertos\MasteringRTOS\Workspace\001Task\STM32L4R5ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "001Task.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\embedded_courses\freertos\MasteringRTOS\Workspace\001Task\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="001Task.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+001Task.elf: $(OBJS) $(USER_OBJS) C:\Users\bystr\Embedded_FreeRTOS\Mastering-FreeRTOS\Workspace\001Task\STM32L4R5ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "001Task.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\bystr\Embedded_FreeRTOS\Mastering-FreeRTOS\Workspace\001Task\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="001Task.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
