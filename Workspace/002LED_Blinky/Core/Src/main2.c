@@ -50,17 +50,9 @@
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-BaseType_t NotifyAndSuspend(TaskHandle_t handle);
 static void handler_LED_red(void* parameters);
 static void handler_LED_green(void* parameters);
 static void handler_LED_blue(void* parameters);
-static void handler_button(void* parameters);
-TaskHandle_t task_to_delete;
-TaskHandle_t handle_LED_green;
-TaskHandle_t handle_LED_red;
-TaskHandle_t handle_LED_blue;
-TaskHandle_t handle_button;
-
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -75,9 +67,11 @@ TaskHandle_t handle_button;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+	  TaskHandle_t handle_LED_green;
+	  TaskHandle_t handle_LED_red;
+	  TaskHandle_t handle_LED_blue;
 
 	  BaseType_t status;
-
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -99,27 +93,24 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+  DWT_CTRL |= (1 << 0);
 
   SEGGER_SYSVIEW_Conf();
   SEGGER_SYSVIEW_Start();
 
   status = xTaskCreate(handler_LED_green, "Task-Green", 200, NULL,
               2, &handle_LED_green);
+  printf("Task Green status: %ld", status);
   configASSERT(status == pdPASS);
-
 
   status = xTaskCreate(handler_LED_red, "Task-Red", 200, NULL,
               2, &handle_LED_red);
+  printf("Task Red status: %ld", status);
   configASSERT(status == pdPASS);
-
 
   status = xTaskCreate(handler_LED_blue, "Task-Blue", 200, NULL,
               2, &handle_LED_blue);
-  configASSERT(status == pdPASS);
-
-
-  status = xTaskCreate(handler_button, "Task-Button", 200, NULL,
-              3, &handle_button);
+  printf("Task Blue status: %ld", status);
   configASSERT(status == pdPASS);
 
   vTaskStartScheduler();
@@ -222,114 +213,51 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 static void handler_LED_red(void* parameters)
 {
-	const TickType_t xPeriod = pdMS_TO_TICKS(150);
+//  const TickType_t xDelay = pdMS_TO_TICKS(125);
+	const TickType_t xPeriod = pdMS_TO_TICKS(750);
 	TickType_t xLastWakeTime = xTaskGetTickCount();
-
   while(1)
   {
-	  vTaskDelayUntil(&xLastWakeTime, xPeriod);
-//    SEGGER_SYSVIEW_PrintfTarget("Toggling RED");
-	  HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
-		if (xTaskNotifyWait(0, 0, NULL, 0))
-		{
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
-			xTaskNotify(handle_button, 0, eNoAction);
-		}
+	vTaskDelayUntil(&xLastWakeTime, xPeriod);
+    SEGGER_SYSVIEW_PrintfTarget("Toggling RED");
+    HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_14);
+//    HAL_Delay(250); // Busy wait
+//    vTaskDelay(xDelay);
+
   }
 }
 
 static void handler_LED_blue(void* parameters)
 {
-  const TickType_t xPeriod = pdMS_TO_TICKS(150);
-  vTaskDelay(pdMS_TO_TICKS(50));
+//  const TickType_t xDelay = pdMS_TO_TICKS(250);
+  const TickType_t xPeriod = pdMS_TO_TICKS(750);
+  vTaskDelay(pdMS_TO_TICKS(250));
   TickType_t xLastWakeTime = xTaskGetTickCount();
 
   while(1)
   {
-		vTaskDelayUntil(&xLastWakeTime, xPeriod);
+	vTaskDelayUntil(&xLastWakeTime, xPeriod);
+    SEGGER_SYSVIEW_PrintfTarget("Toggling BLUE");
     HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
-		if (xTaskNotifyWait(0, 0, NULL, 0))
-		{
-			HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
-			xTaskNotify(handle_button, 0, eNoAction);
-		}
+//    vTaskDelay(xDelay);
   }
 }
 
 
 static void handler_LED_green(void* parameters)
 {
-  const TickType_t xPeriod = pdMS_TO_TICKS(150);
-  vTaskDelay(pdMS_TO_TICKS(100));
+//  const TickType_t xDelay = pdMS_TO_TICKS(375);
+  const TickType_t xPeriod = pdMS_TO_TICKS(750);
+  vTaskDelay(pdMS_TO_TICKS(500));
   TickType_t xLastWakeTime = xTaskGetTickCount();
-
   while(1)
   {
-		vTaskDelayUntil(&xLastWakeTime, xPeriod);
-		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_7);
-		if (xTaskNotifyWait(0, 0, NULL, 0))
-		{
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_7, GPIO_PIN_SET);
-			xTaskNotify(handle_button, 0, eNoAction);
-		}
+	vTaskDelayUntil(&xLastWakeTime, xPeriod);
+    SEGGER_SYSVIEW_PrintfTarget("Toggling GREEN");
+    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_7);
   }
 }
 
-static void handler_button(void* parameters)
-{
-	GPIO_PinState button_state = GPIO_PIN_RESET; //off
-	GPIO_PinState button_state_prev = GPIO_PIN_RESET;
-
-	const TickType_t xPeriod = pdMS_TO_TICKS(25);
-	TickType_t xLastWakeTime = xTaskGetTickCount();
-
-	uint8_t state = 0;
-
-	while(1)
-	{
-		vTaskDelayUntil(&xLastWakeTime, xPeriod);
-
-		button_state_prev = button_state;
-		button_state = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_13);
-
-		if (button_state==GPIO_PIN_SET && button_state_prev==GPIO_PIN_RESET)
-		{
-			SEGGER_SYSVIEW_PrintfTarget("Button pressed");
-
-			switch(state)
-			{
-				case 0:
-					if(NotifyAndSuspend(handle_LED_red))
-						++state;
-					break;
-				case 1:
-					if(NotifyAndSuspend(handle_LED_blue))
-						++state;
-					break;
-				case 2:
-					if(NotifyAndSuspend(handle_LED_green))
-						++state;
-					break;
-				case 3:
-					vTaskResume(handle_LED_red);
-					vTaskResume(handle_LED_blue);
-					vTaskResume(handle_LED_green);
-					state = 0;
-					break;
-			}
-		}
-	}
-}
-
-BaseType_t NotifyAndSuspend(TaskHandle_t handle)
-{
-	BaseType_t status;
-	xTaskNotify(handle, 0, eNoAction);
-	status = xTaskNotifyWait(0, 0, NULL, pdMS_TO_TICKS(1000));
-	if (status)
-		vTaskSuspend(handle);
-	return status;
-}
 /* USER CODE END 4 */
 
 /**
@@ -384,3 +312,4 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
+
