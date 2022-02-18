@@ -9,31 +9,20 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include common/ThirdParty/SEGGER/SEGGER/Syscalls/subdir.mk
--include common/ThirdParty/SEGGER/SEGGER/subdir.mk
--include common/ThirdParty/SEGGER/OS/subdir.mk
--include common/ThirdParty/SEGGER/Config/subdir.mk
--include common/ThirdParty/FreeRTOS/portable/MemMang/subdir.mk
--include common/ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F/subdir.mk
--include common/ThirdParty/FreeRTOS/subdir.mk
+-include ThirdParty/SEGGER/SEGGER/Syscalls/subdir.mk
+-include ThirdParty/SEGGER/SEGGER/subdir.mk
+-include ThirdParty/SEGGER/Rec/subdir.mk
+-include ThirdParty/SEGGER/OS/subdir.mk
+-include ThirdParty/SEGGER/Config/subdir.mk
+-include ThirdParty/FreeRTOS/portable/MemMang/subdir.mk
+-include ThirdParty/FreeRTOS/portable/GCC/ARM_CM4F/subdir.mk
+-include ThirdParty/FreeRTOS/subdir.mk
 -include Drivers/STM32L4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
-ifneq ($(strip $(CC_DEPS)),)
--include $(CC_DEPS)
-endif
-ifneq ($(strip $(C++_DEPS)),)
--include $(C++_DEPS)
-endif
-ifneq ($(strip $(C_UPPER_DEPS)),)
--include $(C_UPPER_DEPS)
-endif
-ifneq ($(strip $(CXX_DEPS)),)
--include $(CXX_DEPS)
-endif
 ifneq ($(strip $(S_DEPS)),)
 -include $(S_DEPS)
 endif
@@ -42,9 +31,6 @@ ifneq ($(strip $(S_UPPER_DEPS)),)
 endif
 ifneq ($(strip $(C_DEPS)),)
 -include $(C_DEPS)
-endif
-ifneq ($(strip $(CPP_DEPS)),)
--include $(CPP_DEPS)
 endif
 endif
 
@@ -83,7 +69,7 @@ main-build: 002LED_Blinky.elf secondary-outputs
 
 # Tool invocations
 002LED_Blinky.elf: $(OBJS) $(USER_OBJS) C:\Users\bystr\Embedded_FreeRTOS\Mastering-FreeRTOS\Workspace\002LED_Blinky\STM32L4R5ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "002LED_Blinky.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\bystr\Embedded_FreeRTOS\Mastering-FreeRTOS\Workspace\002LED_Blinky\STM32L4R5ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="002LED_Blinky.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+	arm-none-eabi-gcc -o "002LED_Blinky.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\bystr\Embedded_FreeRTOS\Mastering-FreeRTOS\Workspace\002LED_Blinky\STM32L4R5ZITX_FLASH.ld" -Wl,-Map="002LED_Blinky.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

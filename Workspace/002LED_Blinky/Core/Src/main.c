@@ -22,8 +22,11 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+
 #include "FreeRTOS.h"
 #include "task.h"
+#include "SEGGER_SYSVIEW.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -99,9 +102,11 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+  DWT_CTRL |= (1 << 0);
 
   SEGGER_SYSVIEW_Conf();
   SEGGER_SYSVIEW_Start();
+//  SEGGER_UART_Init(500000);
 
   status = xTaskCreate(handler_LED_green, "Task-Green", 200, NULL,
               2, &handle_LED_green);
@@ -147,7 +152,7 @@ void SystemClock_Config(void)
 
   /** Configure the main internal regulator output voltage
   */
-  if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK)
+  if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1_BOOST) != HAL_OK)
   {
     Error_Handler();
   }
@@ -157,8 +162,14 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
   RCC_OscInitStruct.MSICalibrationValue = 0;
-  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_7;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_6;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_MSI;
+  RCC_OscInitStruct.PLL.PLLM = 1;
+  RCC_OscInitStruct.PLL.PLLN = 60;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+  RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
+  RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -167,12 +178,12 @@ void SystemClock_Config(void)
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
   {
     Error_Handler();
   }
@@ -222,7 +233,7 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 static void handler_LED_red(void* parameters)
 {
-	const TickType_t xPeriod = pdMS_TO_TICKS(150);
+	const TickType_t xPeriod = pdMS_TO_TICKS(250);
 	TickType_t xLastWakeTime = xTaskGetTickCount();
 
   while(1)
@@ -240,7 +251,7 @@ static void handler_LED_red(void* parameters)
 
 static void handler_LED_blue(void* parameters)
 {
-  const TickType_t xPeriod = pdMS_TO_TICKS(150);
+  const TickType_t xPeriod = pdMS_TO_TICKS(250);
   vTaskDelay(pdMS_TO_TICKS(50));
   TickType_t xLastWakeTime = xTaskGetTickCount();
 
@@ -259,7 +270,7 @@ static void handler_LED_blue(void* parameters)
 
 static void handler_LED_green(void* parameters)
 {
-  const TickType_t xPeriod = pdMS_TO_TICKS(150);
+  const TickType_t xPeriod = pdMS_TO_TICKS(250);
   vTaskDelay(pdMS_TO_TICKS(100));
   TickType_t xLastWakeTime = xTaskGetTickCount();
 
@@ -384,3 +395,4 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
+
